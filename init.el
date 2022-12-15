@@ -62,7 +62,10 @@
 
 
 (straight-use-package 'projectile)
-;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+(require 'projectile)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(projectile-mode +1)
 
 (straight-use-package 'undo-tree)
 (global-undo-tree-mode)
