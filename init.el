@@ -71,6 +71,7 @@
 (load-theme 'wombat)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(delete-selection-mode 1)
 
 ;; (global-display-line-numbers-mode 1)
 ;;(add-hook 'prog-mode-hook #'display-line-numbers-mode)
