@@ -76,6 +76,16 @@
 (tool-bar-mode -1)
 (delete-selection-mode 1)
 
+
+(straight-use-package 'company-tabnine)
+(require 'company-tabnine)
+(add-to-list 'company-backends #'company-tabnine)
+;; Trigger completion immediately.
+(setq company-idle-delay 0)
+;; Number the candidates (use M-1, M-2 etc to select completions).
+(setq company-show-numbers t)
+
+
 ;; (global-display-line-numbers-mode 1)
 ;;(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (global-linum-mode)
