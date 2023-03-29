@@ -1,8 +1,11 @@
 (provide 'setup-helm)
 
 (straight-use-package 'helm)
-(require 'helm-config)
+;;(straight-use-package 'helm-config)
+;;(straight-use-package 'helm-grep)
+(require 'helm-autoloads)
 (require 'helm-grep)
+
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "M-x") 'helm-M-x)
