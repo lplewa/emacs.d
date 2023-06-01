@@ -68,3 +68,5 @@
           helm-buffer-skip-remote-checking t
           helm-locate-fuzzy-match t
           helm-display-header-line nil)
+
+(helm-mode 1)
