@@ -75,6 +75,12 @@
 (straight-use-package 'undo-tree)
 (global-undo-tree-mode)
 
+(straight-use-package 'anzu)
+(require `anzu)
+(global-anzu-mode +1)
+(global-set-key [remap query-replace] 'anzu-query-replace)
+(global-set-key [remap query-replace-regexp] 'anzu-query-replace-regexp)
+
 (windmove-default-keybindings)
 (load-theme 'wombat)
 (menu-bar-mode -1)
@@ -189,7 +195,7 @@ line instead."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(cmake-tab-width 8)
+ '(cmake-tab-width 4)
  '(compilation-scroll-output t)
  '(inhibit-startup-screen t)
  '(rtags-display-result-backend 'helm)
@@ -228,3 +234,36 @@ line instead."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+(require 'cc-mode)
+(require 'semantic)
+
+(global-semanticdb-minor-mode 1)
+(global-semantic-idle-scheduler-mode 1)
+(global-semantic-stickyfunc-mode 1)
+
+(semantic-mode 1)
+
+(defun alexott/cedet-hook ()
+  (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
+  (local-set-key "\C-c\C-s" 'semantic-ia-show-summary))
+
+(add-hook 'c-mode-common-hook 'alexott/cedet-hook)
+(add-hook 'c-mode-hook 'alexott/cedet-hook)
+(add-hook 'c++-mode-hook 'alexott/cedet-hook)
+
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+(straight-use-package 'clang-format+)
+(require 'clang-format+)
+(add-hook 'c-mode-common-hook #'clang-format+-mode)
+
+;; Enable EDE only in C/C++
+(require 'ede)
+(global-ede-mode)
