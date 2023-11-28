@@ -14,6 +14,7 @@
 (add-to-list 'load-path "~/.emacs.d/config")
 (require 'setup-helm)
 (require 'setup-magit)
+(require 'setup-org)
 
 (straight-use-package 'company)
 (straight-use-package 'irony-mode)
@@ -98,6 +99,7 @@
 
 ;; (global-display-line-numbers-mode 1)
 ;;(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(require 'linum)
 (global-linum-mode)
 (setq linum-format "%4d\u2502")
 (defalias 'yes-or-no-p 'y-or-n-p)
