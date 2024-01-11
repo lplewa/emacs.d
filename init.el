@@ -15,9 +15,12 @@
 (require 'setup-helm)
 (require 'setup-magit)
 (require 'setup-org)
-
+(require 'ks-mode)
+(setq ks-indent 8)
+(straight-use-package 'vterm)
 (straight-use-package 'company)
 (straight-use-package 'irony-mode)
+;; (straight-use-package 'ks-mode)
 
 (require 'company)
 (add-hook 'c++-mode-hook 'irony-mode)
