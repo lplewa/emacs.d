@@ -191,4 +191,6 @@
 (add-to-list 'auto-mode-alist '("\\.ks\\'" . ks-mode))
 
 (provide 'ks-mode)
+
+(setq ks-indent 8)
 ;;; ks.el ends here
