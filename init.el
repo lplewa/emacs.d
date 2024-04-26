@@ -30,22 +30,17 @@
 (require 'setup-helm)
 (require 'setup-magit)
 (require 'setup-org)
-(require 'setup-rtags)
+;;(require 'setup-rtags)
+(require 'setup-lsp)
 ;;(require 'setup-split)
-(provide 'setup-c)
+(require 'setup-c)
 (require 'move-text)
 (require 'setup-framemove)
 (require 'ks-mode)
 (require 'kill-line)
 (require 'increment)
-
-(use-package copilot
-  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("dist" "*.el"))
-  :ensure t)
-(add-hook 'prog-mode-hook 'copilot-mode)
-(define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-(define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
-
+(require 'setup-copilot)
+(require 'setup-org)
 
 (straight-use-package 'iedit)
 
@@ -87,7 +82,6 @@
 (global-semanticdb-minor-mode 1)
 (global-semantic-idle-scheduler-mode 1)
 (global-semantic-stickyfunc-mode 1)
-
 (semantic-mode 1)
 
 (defun alexott/cedet-hook ()
@@ -99,6 +93,49 @@
 (add-hook 'c++-mode-hook 'alexott/cedet-hook)
 
 
+(require 'ansi-color)
+(defadvice pop-to-buffer (before cancel-other-window first)
+  (ad-set-arg 1 nil))
+
+(ad-activate 'pop-to-buffer)
+
+;; Toggle window dedication
+(defun toggle-window-dedicated ()
+  "Toggle whether the current active window is dedicated or not"
+  (interactive)
+  (message
+   (if (let (window (get-buffer-window (current-buffer)))
+         (set-window-dedicated-p window
+                                 (not (window-dedicated-p window))))
+       "Window '%s' is dedicated"
+     "Window '%s' is normal")
+   (current-buffer)))
+
+;; Press [pause] key in each window you want to "freeze"
+(global-set-key [pause] 'toggle-window-dedicated)
+
+
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+
+;;(defun colorize-compilation-buffer ()
+;;  (toggle-read-only)
+;;  (ansi-color-apply-on-region compilation-filter-start (point))
+;;  (toggle-read-only))
+;;(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
 ;; Enable EDE only in C/C++
 (require 'ede)
 (global-ede-mode)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ag-ignore-list '("_deps"))
+ '(ag-reuse-buffers t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

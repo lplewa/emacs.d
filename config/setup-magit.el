@@ -1,6 +1,11 @@
 (provide 'setup-magit)
 
-(straight-use-package 'magit)
+;;(straight-use-package 'magit)
+(use-package magit
+  :straight t
+  :bind (:map magit-mode-map
+              ("TAB" . magit-section-toggle)))
+
 (straight-use-package 'forge)
 (straight-use-package 'sqlite3)
 (use-package code-review
