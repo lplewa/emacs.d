@@ -1,6 +1,9 @@
 (provide 'setup-helm)
 
-(straight-use-package 'helm)
+(use-package helm
+  :straight t
+  :diminish helm-mode
+)
 ;;(straight-use-package 'helm-config)
 ;;(straight-use-package 'helm-grep)
 (require 'helm-autoloads)

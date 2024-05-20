@@ -49,3 +49,13 @@
 (use-package visual-fill-column
   :hook (org-mode . efs/org-mode-visual-fill))
 
+(use-package ob-mermaid
+    :straight t
+    :after org
+    )
+(setq ob-mermaid-cli-path "/home/lplewa/.nvm/versions/node/v20.12.1/bin/mmdc")
+
+(org-babel-do-load-languages
+    'org-babel-load-languages
+    '((mermaid . t)
+      (scheme . t)))

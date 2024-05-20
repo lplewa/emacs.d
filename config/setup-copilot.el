@@ -1,6 +1,7 @@
 (use-package copilot
   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("dist" "*.el"))
-  :ensure t)
+  :ensure t
+  :diminish copilot-mode)
 (add-hook 'prog-mode-hook 'copilot-mode)
 (add-to-list 'copilot-indentation-alist `(prog-mode 4))
 (add-to-list 'copilot-indentation-alist `(emacs-lisp-mode 4))
@@ -14,13 +15,14 @@ tab-indent."
       ;;      (company-yasnippet-or-completion)
       (indent-for-tab-command)))
 
-(define-key global-map (kbd "C-<tab>") #'rk/copilot-tab)
+(define-key global-map (kbd "M-`") #'rk/copilot-tab)
+
 
 (defun rk/copilot-quit ()
   "Run `copilot-clear-overlay' or `keyboard-quit'. If copilot is
 cleared, make sure the overlay doesn't come back too soon."
   (interactive)
-  (condition-case err
+  (ignore-errors
       (when copilot--overlay
         (lexical-let ((pre-copilot-disable-predicates copilot-disable-predicates))
           (setq copilot-disable-predicates (list (lambda () t)))
@@ -29,8 +31,7 @@ cleared, make sure the overlay doesn't come back too soon."
            1.0
            nil
            (lambda ()
-             (setq copilot-disable-predicates pre-copilot-disable-predicates)))))
-    (error handler)))
+             (setq copilot-disable-predicates pre-copilot-disable-predicates)))))))
 
 (advice-add 'keyboard-quit :before #'rk/copilot-quit)
 

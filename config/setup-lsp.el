@@ -8,8 +8,8 @@
 ;; if you are helm user
 (use-package helm-lsp :straight t :commands helm-lsp-workspace-symbol)
 ;; optionally if you want to use debugger
-;; (use-package dap-mode)
-;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+(use-package dap-mode :straight t)
+;;(use-package dap-LANGUAGE :straight t)
 
 (use-package ccls :straight t
   :hook ((c-mode c++-mode objc-mode cuda-mode) .
@@ -20,6 +20,7 @@
 (use-package company
   :straight t
   :hook (c-mode . company-mode)
+  :diminish company-mode
   :config
   (push 'company-capf company-backends)
   (setq lsp-completion-provider :capf)
