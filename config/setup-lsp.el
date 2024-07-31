@@ -1,7 +1,9 @@
-(use-package lsp-mode :straight t
+(use-package lsp-mode
+  :straight t
   :init
   (setq lsp-keymap-prefix "C-l")
-  :commands lsp)
+  :commands lsp
+  :hook ((c-mode c++-mode objc-mode cuda-mode) . lsp))
 
 ;; optionally
 (use-package lsp-ui :straight t :commands lsp-ui-mode)
@@ -9,13 +11,13 @@
 (use-package helm-lsp :straight t :commands helm-lsp-workspace-symbol)
 ;; optionally if you want to use debugger
 (use-package dap-mode :straight t)
-;;(use-package dap-LANGUAGE :straight t)
+(require 'dap-gdb-lldb)
 
-(use-package ccls :straight t
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
-
-(setq ccls-executable "/usr/local/bin/ccls")
+;;(use-package ccls :straight t
+;;  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+;;         (lambda () (require 'ccls) (lsp))))
+;;
+;;(setq ccls-executable "/usr/bin/ccls")
 
 (use-package company
   :straight t
