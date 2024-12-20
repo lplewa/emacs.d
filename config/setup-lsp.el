@@ -30,6 +30,10 @@
   (setq company-show-numbers t)
   )
 
+(use-package company-box
+  :straight t
+  :hook (company-mode . company-box-mode)
+  )
 (provide 'setup-lsp)
 
 ;;; setup-lsp.el ends here

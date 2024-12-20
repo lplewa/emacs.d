@@ -1,3 +1,7 @@
+(use-package jsonrpc
+  :straight
+  :ensure t)
+
 (use-package copilot
   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("dist" "*.el"))
   :ensure t
