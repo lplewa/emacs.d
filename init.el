@@ -156,6 +156,43 @@
   :ensure nil
   :config
   (global-so-long-mode 1))
+(use-package lsp-pyright
+  :ensure t
+  :straight t
+  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferret
+
+;; stolen from reddit. Change font size based on the monitor resolution
+(defun td/adapt-font-size (&optional frame)
+  "Adjust *only FRAME’s* default font height according to its monitor’s PPI.
+
+Ranges
+  PPI < 60          → :height 150
+  60 ≤ PPI < 90     → :height 140
+  PPI ≥ 90          → :height 130"
+  ;; Work on the given frame, or fall back to the frame that’s
+  ;; currently selected (so we never pass nil to set-face-attribute).
+  (let* ((frame   (or frame (selected-frame)))
+         (attrs   (frame-monitor-attributes frame))
+         (mm-size (alist-get 'mm-size attrs))      ; (width‑mm height‑mm)
+         (geom    (alist-get 'geometry attrs))     ; (x y width‑px height‑px)
+         ;; PPI = pixel‑width / inch‑width,  inch‑width = mm‑width / 25.4
+         (ppi (/ (nth 2 geom) (/ (car mm-size) 25.4))))
+;;    (message "Frame %s → %.1f PPI" (frame-parameter frame 'name) ppi)
+    (cond
+     ((< ppi 60)
+      (set-face-attribute 'default frame :height 117))
+     ((< ppi 90)
+      (set-face-attribute 'default frame :height 135))
+     (t
+      (set-face-attribute 'default frame :height 125)))))
+
+;; Hook it up ----------------------------------------------------------
+(add-function :after after-focus-change-function #'td/adapt-font-size)
+(add-hook 'after-make-frame-functions            #'td/adapt-font-size)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
