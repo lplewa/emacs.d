@@ -3,7 +3,16 @@
   :init
   (setq lsp-keymap-prefix "C-l")
   :commands lsp
-  :hook ((c-mode c++-mode objc-mode cuda-mode) . lsp))
+  :hook ((c-mode c++-mode objc-mode cuda-mode) . lsp)
+  :config
+  (progn
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                      :major-modes '(c-mode c++-mode)
+                      :remote? t
+                      :server-id 'clangd-remote)))
+  )
+
 
 ;; optionally
 (use-package lsp-ui :straight t :commands lsp-ui-mode)
@@ -37,3 +46,4 @@
 (provide 'setup-lsp)
 
 ;;; setup-lsp.el ends here
+;;;/ssh:sdp@10.217.180.144
