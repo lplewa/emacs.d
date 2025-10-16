@@ -90,7 +90,7 @@
   :ensure t
   :config
   (global-set-key (kbd "C-c C-v C-v") 'multi-vterm-project)
-  (global-set-key (kbd "C-c C-v C-V") 'multi-vterm)
+  (global-set-key (kbd "C-c C-v C-c") 'multi-vterm)
   (global-set-key (kbd "C-c C-v C-p") 'multi-vterm-prev)
   (global-set-key (kbd "C-c C-v C-n") 'multi-vterm-next)
 )
@@ -187,10 +187,10 @@ Ranges
          (geom    (alist-get 'geometry attrs))     ; (x y width‑px height‑px)
          ;; PPI = pixel‑width / inch‑width,  inch‑width = mm‑width / 25.4
          (ppi (/ (nth 2 geom) (/ (car mm-size) 25.4))))
-;;    (message "Frame %s → %.1f PPI" (frame-parameter frame 'name) ppi)
+    (message "Frame %s → %.1f PPI" (frame-parameter frame 'name) ppi)
     (cond
-     ((< ppi 60)
-      (set-face-attribute 'default frame :height 117))
+     ((< ppi 63)
+      (set-face-attribute 'default frame :height 120))
      ((< ppi 90)
       (set-face-attribute 'default frame :height 135))
      (t
@@ -209,6 +209,7 @@ Ranges
  '(ag-ignore-list '("_deps"))
  '(ag-reuse-buffers t)
  '(cmake-tab-width 4)
+ '(copilot-max-char -1)
  '(custom-safe-themes
    '("5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874"
      "4ade6b630ba8cbab10703b27fd05bb43aaf8a3e5ba8c2dc1ea4a2de5f8d45882"
@@ -232,6 +233,13 @@ Ranges
  '(gdb-display-source-buffer-action '(nil (reusable-frames . t)))
  '(lsp-clients-clangd-args '("--inlay-hints" "--header-insertion=never"))
  '(lsp-diagnostics-provider t)
+ '(lsp-ui-doc-include-signature nil)
+ '(lsp-ui-doc-max-width 1500)
+ '(lsp-ui-doc-position 'bottom)
+ '(lsp-ui-doc-show-with-cursor nil)
+ '(lsp-ui-doc-side 'left)
+ '(lsp-ui-doc-use-childframe t)
+ '(lsp-ui-doc-use-webkit nil)
  '(projectile-globally-ignored-file-suffixes '("~"))
  '(projectile-indexing-method 'alien)
  '(so-long-max-lines 5000)
